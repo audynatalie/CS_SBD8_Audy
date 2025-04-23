@@ -4,7 +4,7 @@ import { ThemeContext } from '../contexts/ThemeContext';
 import './HomePage.css';
 
 // Import SVG logos for case studies
-import MandiriLogo from '../assets/Mandiri.svg';
+
 import PertaminaLogo from '../assets/Pertamina.svg';
 
 const HomePage = () => {
