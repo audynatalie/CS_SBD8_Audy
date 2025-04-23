@@ -1,26 +1,335 @@
-/* HomePage.css */
+/* HomePage.css dengan animasi dan efek */
 
-/* Hero Section */
-.hero {
-    background: linear-gradient(135deg, #0f62fe 0%, #0043ce 100%);
-    color: #ffffff;
-    padding: 80px 0;
+/* Variabel warna IBM */
+:root {
+    --ibm-blue: #0f62fe;
+    --ibm-blue-dark: #0043ce;
+    --ibm-blue-light: #78a9ff;
+    --ibm-blue-subtle: #e5efff;
+    --ibm-black: #161616;
+    --ibm-gray-10: #f4f4f4;
+    --ibm-gray-20: #e0e0e0;
+    --ibm-gray-70: #525252;
+    --ibm-gray-80: #393939;
+    --ibm-gray-90: #262626;
+    --ibm-gray-100: #161616;
+    --ibm-white: #ffffff;
+    --ibm-black-alpha: rgba(22, 22, 22, 0.7);
+    --ibm-blue-alpha: rgba(15, 98, 254, 0.1);
+    --transition-standard: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
+    --transition-bounce: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  
+  /* Animasi Global */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes zoomIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(15, 98, 254, 0.4);
+    }
+    70% {
+      transform: scale(1.05);
+      box-shadow: 0 0 0 10px rgba(15, 98, 254, 0);
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(15, 98, 254, 0);
+    }
+  }
+  
+  @keyframes iconPulse {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  
+  /* Estilos globales */
+  body {
+    font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    line-height: 1.5;
+    color: var(--ibm-black);
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+  }
+  
+  /* Animación de secciones */
+  .animate-on-scroll {
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+  
+  .animate-on-scroll.animate-in {
+    animation-duration: 0.8s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  
+  .animate-on-scroll.fade-in-up.animate-in {
+    animation-name: fadeInUp;
+  }
+  
+  .animate-on-scroll.slide-in-left.animate-in {
+    animation-name: slideInLeft;
+  }
+  
+  .animate-on-scroll.slide-in-right.animate-in {
+    animation-name: slideInRight;
+  }
+  
+  .animate-on-scroll.slide-in-up.animate-in {
+    animation-name: slideInUp;
+  }
+  
+  .animate-on-scroll.zoom-in.animate-in {
+    animation-name: zoomIn;
+  }
+  
+  /* Botones */
+  .btn {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 12px 24px;
+    border-radius: 0;
+    text-decoration: none;
+    transition: var(--transition-standard);
+    cursor: pointer;
+    border: 2px solid transparent;
+    text-align: center;
+  }
+  
+  .btn-primary {
+    background-color: var(--ibm-blue);
+    color: var(--ibm-white);
+    border-color: var(--ibm-blue);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+  .btn-primary:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+    z-index: -1;
+  }
+  
+  .btn-primary:hover:before {
+    left: 100%;
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--ibm-blue-dark);
+    border-color: var(--ibm-blue-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--ibm-blue);
+    border-color: var(--ibm-blue);
+  }
+  
+  .btn-secondary:hover {
+    background-color: var(--ibm-blue-alpha);
+    transform: translateY(-2px);
+  }
+  
+  .pulse {
+    animation: pulse 2s infinite;
+  }
+  
+  /* Títulos de sección */
+  .section-title {
+    font-size: 32px;
+    font-weight: 300;
+    margin-bottom: 48px;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .section-title:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background-color: var(--ibm-blue);
+  }
+  
+  /* Efectos varios */
+  .hover-effect {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .hover-effect:after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--ibm-blue);
+    transition: width 0.3s ease;
+  }
+  
+  .hover-effect:hover:after {
+    width: 100%;
+  }
+  
+  .highlight-effect {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .highlight-effect:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background-color: var(--ibm-blue-alpha);
+    z-index: -1;
+    transform: scaleX(0.7);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  
+  .highlight-effect:hover:before {
+    transform: scaleX(1);
+  }
+  
+  /* Hero Section */
+  .hero {
+    background: linear-gradient(135deg, var(--ibm-blue) 0%, var(--ibm-blue-dark) 100%);
+    color: var(--ibm-white);
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .particle-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
   }
   
   .hero-content {
+    position: relative;
     max-width: 700px;
+    z-index: 2;
   }
   
   .hero h1 {
     font-size: 48px;
     font-weight: 300;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
+    line-height: 1.2;
+  }
+  
+  .animated-title {
+    overflow: hidden;
+    display: block;
   }
   
   .hero-subtitle {
     font-size: 18px;
     margin-bottom: 32px;
     line-height: 1.6;
+    opacity: 0.9;
   }
   
   .hero-buttons {
@@ -29,28 +338,39 @@
   }
   
   .hero .btn-secondary {
-    color: #ffffff;
-    border-color: #ffffff;
+    color: var(--ibm-white);
+    border-color: var(--ibm-white);
   }
   
   .hero .btn-secondary:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
   
+  .hero-shape {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: var(--ibm-gray-10);
+    clip-path: polygon(0 60%, 100% 0, 100% 100%, 0% 100%);
+    z-index: 1;
+  }
+  
+  .home-page.dark .hero-shape {
+    background-color: var(--ibm-gray-100);
+  }
+  
   /* Featured Products Section */
   .featured-products-section {
-    padding: 80px 0;
-    background-color: #f4f4f4;
+    padding: 100px 0;
+    background-color: var(--ibm-gray-10);
+    position: relative;
     transition: background-color 0.3s;
   }
   
   .home-page.dark .featured-products-section {
-    background-color: #262626;
-  }
-  
-  .featured-products-section h2 {
-    text-align: center;
-    margin-bottom: 48px;
+    background-color: var(--ibm-gray-100);
   }
   
   .products-grid {
@@ -60,60 +380,100 @@
   }
   
   .product-card {
-    background-color: #ffffff;
+    background-color: var(--ibm-white);
     padding: 32px;
-    border-radius: 4px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: var(--transition-bounce);
+    position: relative;
+    overflow: hidden;
   }
   
   .home-page.dark .product-card {
-    background-color: #393939;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    background-color: var(--ibm-gray-90);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
   
   .product-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-12px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
   }
   
   .home-page.dark .product-card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  }
+  
+  .product-card:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 0;
+    background-color: var(--ibm-blue);
+    transition: height 0.3s ease;
+  }
+  
+  .product-card:hover:after {
+    height: 100%;
   }
   
   .product-icon {
     margin-bottom: 24px;
-    color: #0f62fe;
+    color: var(--ibm-blue);
+  }
+  
+  .icon-pulse {
+    animation: iconPulse 3s infinite;
   }
   
   .home-page.dark .product-icon {
-    color: #78a9ff;
+    color: var(--ibm-blue-light);
   }
   
   .product-card h3 {
     font-size: 20px;
     font-weight: 400;
     margin-bottom: 16px;
+    transition: var(--transition-standard);
+  }
+  
+  .product-card:hover h3 {
+    color: var(--ibm-blue);
   }
   
   .product-card p {
-    color: #525252;
+    color: var(--ibm-gray-70);
     margin-bottom: 24px;
     font-size: 14px;
   }
   
   .home-page.dark .product-card p {
-    color: #c6c6c6;
+    color: var(--ibm-gray-20);
   }
   
   .product-link {
     font-size: 14px;
     font-weight: 500;
+    color: var(--ibm-blue);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .home-page.dark .product-link {
+    color: var(--ibm-blue-light);
   }
   
   /* Solutions Section */
   .solutions-section {
-    padding: 80px 0;
+    padding: 100px 0;
+    background-color: var(--ibm-white);
+    transition: background-color 0.3s;
+  }
+  
+  .home-page.dark .solutions-section {
+    background-color: var(--ibm-gray-100);
   }
   
   .solutions-content h2 {
@@ -123,12 +483,12 @@
   .solutions-content > p {
     max-width: 700px;
     margin-bottom: 48px;
-    color: #525252;
+    color: var(--ibm-gray-70);
     font-size: 16px;
   }
   
   .home-page.dark .solutions-content > p {
-    color: #c6c6c6;
+    color: var(--ibm-gray-20);
   }
   
   .industry-grid {
@@ -139,50 +499,92 @@
   
   .industry-card {
     padding: 32px;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    transition: background-color 0.3s, border-color 0.3s;
+    border-radius: 8px;
+    background-color: var(--ibm-white);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: var(--transition-bounce);
+    position: relative;
+    overflow: hidden;
   }
   
   .home-page.dark .industry-card {
-    border-color: #525252;
+    background-color: var(--ibm-gray-90);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .industry-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  }
+  
+  .industry-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: var(--ibm-blue-subtle);
+    color: var(--ibm-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    transition: var(--transition-standard);
+  }
+  
+  .home-page.dark .industry-icon-wrapper {
+    background-color: rgba(120, 169, 255, 0.1);
+    color: var(--ibm-blue-light);
+  }
+  
+  .industry-card:hover .industry-icon-wrapper {
+    transform: scale(1.1);
+    background-color: var(--ibm-blue);
+    color: var(--ibm-white);
   }
   
   .industry-card h3 {
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 500;
     margin-bottom: 16px;
+    transition: var(--transition-standard);
+  }
+  
+  .industry-card:hover h3 {
+    color: var(--ibm-blue);
   }
   
   .industry-card p {
-    color: #525252;
+    color: var(--ibm-gray-70);
     font-size: 14px;
     margin-bottom: 24px;
   }
   
   .home-page.dark .industry-card p {
-    color: #c6c6c6;
+    color: var(--ibm-gray-20);
   }
   
   .industry-link {
     font-size: 14px;
     font-weight: 500;
+    color: var(--ibm-blue);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .home-page.dark .industry-link {
+    color: var(--ibm-blue-light);
   }
   
   /* Case Studies Section */
   .case-studies-section {
-    padding: 80px 0;
-    background-color: #f4f4f4;
+    padding: 100px 0;
+    background-color: var(--ibm-gray-10);
+    position: relative;
     transition: background-color 0.3s;
   }
   
   .home-page.dark .case-studies-section {
-    background-color: #262626;
-  }
-  
-  .case-studies-section h2 {
-    text-align: center;
-    margin-bottom: 48px;
+    background-color: var(--ibm-gray-100);
   }
   
   .case-studies-grid {
@@ -193,105 +595,147 @@
   
   .case-study-card {
     display: flex;
-    background-color: #ffffff;
-    border-radius: 4px;
+    background-color: var(--ibm-white);
+    border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: var(--transition-bounce);
   }
   
   .home-page.dark .case-study-card {
-    background-color: #393939;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    background-color: var(--ibm-gray-90);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
   
   .case-study-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-12px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
   }
   
   .home-page.dark .case-study-card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
   }
   
   .case-study-image {
     flex: 0 0 40%;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--ibm-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
-  .placeholder-image {
+  .home-page.dark .case-study-image {
+    background-color: var(--ibm-gray-90);
+  }
+  
+  .case-study-svg {
     width: 100%;
     height: 100%;
-    background-color: #e0e0e0;
-    transition: background-color 0.3s;
+    object-fit: contain;
+    padding: 16px;
+    transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
   }
   
-  .home-page.dark .placeholder-image {
-    background-color: #525252;
+  .case-study-card:hover .case-study-svg {
+    transform: scale(1.1);
   }
   
   .case-study-content {
     flex: 1;
-    padding: 24px;
+    padding: 32px;
+    position: relative;
+  }
+  
+  .case-study-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background-color: var(--ibm-blue-subtle);
+    color: var(--ibm-blue);
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    transition: var(--transition-standard);
+  }
+  
+  .home-page.dark .case-study-badge {
+    background-color: rgba(120, 169, 255, 0.1);
+    color: var(--ibm-blue-light);
+  }
+  
+  .case-study-card:hover .case-study-badge {
+    background-color: var(--ibm-blue);
+    color: var(--ibm-white);
   }
   
   .case-study-content h3 {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 400;
     margin-bottom: 16px;
+    transition: var(--transition-standard);
+  }
+  
+  .case-study-card:hover .case-study-content h3 {
+    color: var(--ibm-blue);
   }
   
   .case-study-content p {
-    color: #525252;
+    color: var(--ibm-gray-70);
     font-size: 14px;
     margin-bottom: 24px;
   }
   
   .home-page.dark .case-study-content p {
-    color: #c6c6c6;
+    color: var(--ibm-gray-20);
   }
   
   .case-study-link {
     font-size: 14px;
     font-weight: 500;
+    color: var(--ibm-blue);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
   }
   
-.case-study-svg {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    padding: 16px;
-    background-color: #ffffff;
-    transition: transform 0.3s;
+  .home-page.dark .case-study-link {
+    color: var(--ibm-blue-light);
   }
   
-  .home-page.dark .case-study-svg {
-    background-color: #393939;
-  }
-  
-  .case-study-card:hover .case-study-svg {
-    transform: scale(1.05);
-  }
-
-  /* CTA Section */
+  /* CTA Section with 3D Effect */
   .cta-section {
-    padding: 80px 0;
-    background: linear-gradient(135deg, #0f62fe 0%, #0043ce 100%);
-    color: #ffffff;
+    padding: 100px 0;
+    background: linear-gradient(135deg, var(--ibm-blue) 0%, var(--ibm-blue-dark) 100%);
+    color: var(--ibm-white);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .cta-3d {
+    transform-style: preserve-3d;
+    perspective: 1000px;
   }
   
   .cta-content {
     text-align: center;
     max-width: 700px;
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
   }
   
   .cta-content h2 {
     margin-bottom: 16px;
+    font-size: 36px;
+    font-weight: 300;
   }
   
   .cta-content p {
-    font-size: 16px;
+    font-size: 18px;
     margin-bottom: 32px;
+    opacity: 0.9;
   }
   
   .cta-buttons {
@@ -301,90 +745,39 @@
   }
   
   .cta-section .btn-secondary {
-    color: #ffffff;
-    border-color: #ffffff;
+    color: var(--ibm-white);
+    border-color: var(--ibm-white);
   }
   
   .cta-section .btn-secondary:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
   
-  /* Responsive adjustments */
-  @media (max-width: 992px) {
-    .hero h1 {
-      font-size: 42px;
-    }
-    
-    .case-studies-grid {
-      grid-template-columns: 1fr;
-    }
+  .cta-bg-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 10%),
+      radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 10%),
+      radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 30%);
+    z-index: 1;
+    animation: float 15s infinite ease-in-out;
   }
   
-  @media (max-width: 768px) {
-    .hero {
-      padding: 60px 0;
-    }
-    
-    .hero h1 {
-      font-size: 36px;
-    }
-    
-    .hero-buttons {
-      flex-direction: column;
-      width: 100%;
-    }
-    
-    .hero-buttons .btn {
-      width: 100%;
-      text-align: center;
-    }
-    
-    .products-grid,
-    .industry-grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .case-study-card {
-      flex-direction: column;
-    }
-    
-    .case-study-image {
-      flex: 0 0 200px;
-    }
-  }
-  
-  @media (max-width: 576px) {
-    .hero {
-      padding: 40px 0;
-    }
-    
-    .hero h1 {
-      font-size: 32px;
-    }
-    
-    .featured-products-section,
-    .solutions-section,
-    .case-studies-section,
-    .cta-section {
-      padding: 60px 0;
-    }
-  }
-
   /* Wawasan dan Alat AI Section */
-.insights-ai-section {
-    padding: 80px 0;
-    background-color: #ffffff;
+  .insights-ai-section {
+    padding: 100px 0;
+    background-color: var(--ibm-white);
+    position: relative;
+    overflow: hidden;
     transition: background-color 0.3s;
   }
   
   .home-page.dark .insights-ai-section {
-    background-color: #161616;
-  }
-  
-  .insights-ai-section h2 {
-    margin-bottom: 48px;
-    font-size: 32px;
-    font-weight: 400;
+    background-color: var(--ibm-gray-100);
   }
   
   .insights-grid {
@@ -393,26 +786,55 @@
     gap: 48px;
   }
   
+  .insights-column {
+    position: relative;
+  }
+  
+  .insights-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: var(--ibm-blue-subtle);
+    color: var(--ibm-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    transition: var(--transition-standard);
+  }
+  
+  .home-page.dark .insights-icon-wrapper {
+    background-color: rgba(120, 169, 255, 0.1);
+    color: var(--ibm-blue-light);
+  }
+  
+  .insights-column:hover .insights-icon-wrapper {
+    transform: scale(1.1);
+    background-color: var(--ibm-blue);
+    color: var(--ibm-white);
+  }
+  
   .insights-column h3 {
-    color: #0f62fe;
+    color: var(--ibm-blue);
     font-size: 24px;
     font-weight: 400;
     margin-bottom: 16px;
+    transition: var(--transition-standard);
   }
   
   .home-page.dark .insights-column h3 {
-    color: #78a9ff;
+    color: var(--ibm-blue-light);
   }
   
   .insights-column p {
     font-size: 16px;
     line-height: 1.5;
     margin-bottom: 24px;
-    color: #161616;
+    color: var(--ibm-gray-70);
   }
   
   .home-page.dark .insights-column p {
-    color: #f4f4f4;
+    color: var(--ibm-gray-20);
   }
   
   .insights-links {
@@ -422,25 +844,39 @@
   }
   
   .insight-link {
-    color: #0f62fe;
+    color: var(--ibm-blue);
     font-size: 14px;
     font-weight: 500;
     text-decoration: none;
     display: flex;
     align-items: center;
-    transition: color 0.2s;
+    transition: var(--transition-standard);
   }
   
   .home-page.dark .insight-link {
-    color: #78a9ff;
-  }
-  
-  .insight-link:hover {
-    text-decoration: underline;
+    color: var(--ibm-blue-light);
   }
   
   .insight-link span {
     margin-left: 4px;
+    transition: transform 0.3s ease;
+  }
+  
+  .insight-link:hover span {
+    transform: translateX(4px);
+  }
+  
+  .insights-shape {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 400px;
+    height: 400px;
+    background-color: var(--ibm-blue-alpha);
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.5;
+    z-index: 0;
   }
   
   /* Teknologi & Konsultasi Section */
@@ -607,5 +1043,292 @@
     
     .tech-consulting-text p {
       font-size: 16px;
+    }
+  }
+
+  .inside-ibm-link {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ibm-blue);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: var(--transition-standard);
+  }
+  
+  .home-page.dark .inside-ibm-link {
+    color: var(--ibm-blue-light);
+  }
+  
+  .inside-ibm-link span {
+    margin-left: 4px;
+    transition: transform 0.3s ease;
+  }
+  
+  .inside-ibm-link:hover span {
+    transform: translateX(4px);
+  }
+  
+  .inside-ibm-link .external-icon {
+    font-size: 12px;
+    margin-top: -2px;
+  }
+  
+  /* Inline links */
+  .inline-link {
+    color: var(--ibm-blue);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition-standard);
+  }
+  
+  .home-page.dark .inline-link {
+    color: var(--ibm-blue-light);
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 1200px) {
+    .case-studies-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .section-title {
+      font-size: 28px;
+    }
+    
+    .hero h1 {
+      font-size: 40px;
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .products-grid,
+    .industry-grid,
+    .insights-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .inside-ibm-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    
+    .hero {
+      padding: 80px 0;
+    }
+    
+    .hero h1 {
+      font-size: 36px;
+    }
+    
+    .hero-subtitle {
+      font-size: 16px;
+    }
+    
+    .section-title {
+      font-size: 26px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .products-grid,
+    .industry-grid,
+    .insights-grid,
+    .inside-ibm-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .case-study-card {
+      flex-direction: column;
+    }
+    
+    .case-study-image {
+      flex: 0 0 200px;
+    }
+    
+    .hero-buttons {
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+    
+    .hero-buttons .btn {
+      width: 100%;
+    }
+    
+    .cta-buttons {
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+  
+    .cta-buttons .btn {
+      width: 100%;
+    }
+    
+    .hero h1 {
+      font-size: 32px;
+    }
+    
+    .section-title {
+      font-size: 24px;
+    }
+    
+    .product-card,
+    .industry-card,
+    .ibm-card {
+      padding: 24px;
+    }
+    
+    .featured-products-section,
+    .solutions-section,
+    .case-studies-section,
+    .insights-ai-section,
+    .technology-consulting-section,
+    .inside-ibm-section {
+      padding: 60px 0;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .hero {
+      padding: 60px 0;
+    }
+    
+    .hero h1 {
+      font-size: 28px;
+    }
+    
+    .hero-subtitle {
+      font-size: 14px;
+    }
+    
+    .btn {
+      font-size: 14px;
+      padding: 10px 20px;
+    }
+    
+    .section-title {
+      font-size: 22px;
+      margin-bottom: 24px;
+    }
+    
+    .section-title:after {
+      width: 40px;
+      height: 2px;
+    }
+    
+    .product-card,
+    .industry-card,
+    .ibm-card {
+      padding: 20px;
+    }
+    
+    .case-study-content {
+      padding: 20px;
+    }
+    
+    .tech-consulting-text p {
+      font-size: 16px;
+    }
+  }
+  
+  /* Implementasi Dark Mode dengan transisi */
+  .home-page {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Tambahan efek hover untuk peningkatan interaktivitas */
+  .btn-primary:active {
+    transform: scale(0.98);
+  }
+  
+  .btn-secondary:active {
+    transform: scale(0.98);
+  }
+  
+  /* Efek Loading untuk animasi konten */
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  .content-loading {
+    background: linear-gradient(90deg, 
+      var(--ibm-gray-20) 0%, 
+      var(--ibm-gray-10) 50%, 
+      var(--ibm-gray-20) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 4px;
+  }
+  
+  .home-page.dark .content-loading {
+    background: linear-gradient(90deg, 
+      var(--ibm-gray-80) 0%, 
+      var(--ibm-gray-90) 50%, 
+      var(--ibm-gray-80) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+  
+  /* Accessibility improvements */
+  :focus {
+    outline: 2px solid var(--ibm-blue);
+    outline-offset: 2px;
+  }
+  
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+  
+  /* Print styles */
+  @media print {
+    .hero {
+      background: none !important;
+      color: var(--ibm-black) !important;
+      padding: 20px 0;
+    }
+    
+    .hero-buttons,
+    .cta-section,
+    .particle-canvas,
+    .hero-shape,
+    .insights-shape,
+    .tech-consulting-pattern {
+      display: none !important;
+    }
+    
+    .product-card,
+    .industry-card,
+    .case-study-card,
+    .ibm-card {
+      box-shadow: none !important;
+      border: 1px solid var(--ibm-gray-20);
+    }
+    
+    .inside-ibm-link,
+    .product-link,
+    .industry-link,
+    .case-study-link,
+    .insight-link,
+    .inline-link {
+      color: var(--ibm-black) !important;
+    }
+    
+    .section-title:after {
+      background-color: var(--ibm-black) !important;
     }
   }
