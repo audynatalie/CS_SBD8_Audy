@@ -17,7 +17,6 @@ function App() {
           <main className="content">
             <Routes>
               <Route path="/" element={<HomePage />} />
-              {/* Tambahkan routes lainnya di sini */}
               <Route path="*" element={<HomePage />} />
             </Routes>
           </main>
@@ -27,5 +26,7 @@ function App() {
     </ThemeProvider>
   );
 }
+
+
 
 export default App;

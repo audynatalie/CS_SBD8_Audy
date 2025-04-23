@@ -5,12 +5,14 @@ import './Navbar.css';
 import IBMLogo from '../assets/ibm-logo.svg';
 import IBMLogoDark from '../assets/ibm-logo-dark.svg';
 import { ThemeContext } from '../contexts/ThemeContext';
+import HelpDeskPopup from './HelpDeskPopup';
 
 const Navbar = () => {
-  const { theme } = useContext(ThemeContext);
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const [activeMenu, setActiveMenu] = useState(null);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [showChatPopup, setShowChatPopup] = useState(false);
+  const [showHelpDesk, setShowHelpDesk] = useState(false);
   
   const toggleMenu = (menu) => {
     if (activeMenu === menu) {
@@ -28,6 +30,10 @@ const Navbar = () => {
   const toggleChatPopup = () => {
     setShowChatPopup(!showChatPopup);
     setShowUserDropdown(false);
+  };
+
+  const toggleHelpDesk = () => {
+    setShowHelpDesk(!showHelpDesk);
   };
 
   const menus = {
@@ -159,9 +165,37 @@ const Navbar = () => {
             </button>
           </div>
           <div className="navbar-icons">
+            {/* Tombol Theme Mode */}
+            <button className="icon-button theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+              {theme === 'light' ? (
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="5"></circle>
+                  <line x1="12" y1="1" x2="12" y2="3"></line>
+                  <line x1="12" y1="21" x2="12" y2="23"></line>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                  <line x1="1" y1="12" x2="3" y2="12"></line>
+                  <line x1="21" y1="12" x2="23" y2="12"></line>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+              )}
+            </button>
             <button className="icon-button" onClick={toggleChatPopup}>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </button>
+            {/* Tombol HelpDesk */}
+            <button className="icon-button" onClick={toggleHelpDesk} aria-label="Help Desk">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
               </svg>
             </button>
             <div className="account-container">
@@ -208,41 +242,49 @@ const Navbar = () => {
       )}
 
       {showChatPopup && (
-        <div className="chat-popup">
-          <div className="chat-popup-header">
-            <h3>ID-Id</h3>
-            <button className="close-button" onClick={toggleChatPopup}>×</button>
-          </div>
-          <div className="chat-popup-content">
-            <div className="chat-message-wrapper">
-              <div className="chat-icon">🔊</div>
-              <p>Halo! Ada yang bisa dibantu?</p>
-            </div>
-            <div className="chat-options">
-              <a href="#" className="chat-option-link">
-                <div className="chat-option">
-                  <p>Saya membutuhkan bantuan</p>
-                  <span className="external-icon">↗</span>
-                </div>
-              </a>
-              <a href="#" className="chat-option-link">
-                <div className="chat-option">
-                  <p>Saya memiliki pertanyaan seputar sales</p>
-                  <span className="external-icon">↗</span>
-                </div>
-              </a>
-              <a href="#" className="chat-option-link">
-                <div className="chat-option">
-                  <p>Aku mencari sesuatu yang lain</p>
-                  <span className="external-icon">↗</span>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
+        <ChatPopup onClose={toggleChatPopup} theme={theme} />
       )}
+
+      {/* Menambahkan HelpDesk Popup */}
+      <HelpDeskPopup isOpen={showHelpDesk} onClose={toggleHelpDesk} theme={theme} />
     </header>
   );
 };
+
+// Komponen ChatPopup (sebagai placeholder jika belum didefinisikan)
+const ChatPopup = ({ onClose, theme }) => (
+  <div className={`chat-popup ${theme}`}>
+    <div className="chat-popup-header">
+      <h3>Chat dengan IBM</h3>
+      <button className="close-button" onClick={onClose}>×</button>
+    </div>
+    <div className="chat-popup-content">
+      <div className="chat-message-wrapper">
+        <div className="chat-icon">🤖</div>
+        <p>Hai, ada yang bisa saya bantu?</p>
+      </div>
+      <div className="chat-options">
+        <a href="/dukungan" className="chat-option-link">
+          <div className="chat-option">
+            <p>Butuh bantuan teknis?</p>
+            <span className="external-icon">→</span>
+          </div>
+        </a>
+        <a href="/produk" className="chat-option-link">
+          <div className="chat-option">
+            <p>Informasi produk</p>
+            <span className="external-icon">→</span>
+          </div>
+        </a>
+        <a href="/konsultasi" className="chat-option-link">
+          <div className="chat-option">
+            <p>Bicara dengan ahli</p>
+            <span className="external-icon">→</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+);
 
 export default Navbar;

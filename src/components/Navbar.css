@@ -512,3 +512,31 @@
       width: 100%;
     }
   }
+
+  /* Tambahkan di Navbar.css */
+.theme-toggle {
+    background: transparent;
+    position: relative;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .theme-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .dark .theme-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .theme-toggle svg {
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  
+  .theme-toggle:hover svg {
+    transform: rotate(15deg);
+  }
